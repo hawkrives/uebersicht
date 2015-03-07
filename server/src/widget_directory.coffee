@@ -120,7 +120,7 @@ module.exports = (directoryPath) ->
     fileParts.join('-').replace(/\./g, '-')
 
   isWidgetPath = (filePath) ->
-    /\.coffee$|\.js$/.test filePath
+    /\.(coffee|js|es)$/.test filePath
 
   isWidgetDirPath = (path) ->
     /\.widget$/.test path

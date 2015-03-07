@@ -1,5 +1,6 @@
 fs     = require 'fs'
 coffee = require 'coffee-script'
+babel  = require('babel-core/register')({extensions: ['.es']})
 
 # throws error if something goes wrong
 exports.loadWidget = loadWidget = (filePath) ->
@@ -7,6 +8,9 @@ exports.loadWidget = loadWidget = (filePath) ->
 
   if filePath.match /\.coffee$/
     definition = coffee.eval definition
+  else if filePath.match /\.es$/
+    delete require.cache[require.resolve filePath]
+    definition = require filePath
   else
     definition = eval '({' + definition + '})'
 
