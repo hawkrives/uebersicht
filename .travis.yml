@@ -8,7 +8,7 @@ before_install:
 
 install:
   - npm install
-  - brew cask install phantomjs
+  - brew install phantomjs
 
 script:
   - npm run build-server
