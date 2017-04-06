@@ -24,7 +24,7 @@ install:
 
 before_script:
   - |
-    if [ BROWSER ]; then
+    if [ $BROWSER ]; then
       export DISPLAY=:99.0
       sh -e /etc/init.d/xvfb start
       sleep 3 # give xvfb some time to start
@@ -33,6 +33,6 @@ before_script:
 script:
   - npm run build-server
   - npm run build-client
-  - if [ LOCAL ]; then npm run test-local; fi
-  - if [ BROWSER ]; then npm run test-browser; fi
+  - if [ $LOCAL ]; then npm run test-local; fi
+  - if [ $BROWSER ]; then npm run test-browser; fi
   
