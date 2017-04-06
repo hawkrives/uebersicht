@@ -6,14 +6,14 @@ matrix:
     - os: osx
       language: objective-c
       osx_image: xcode8.3
-      node_js: *NODE_VERSION
+      node_js: *node
       env: [LOCAL=true]
 
     - os: linux
       dist: trusty
       sudo: false
       language: node_js
-      node_js: *NODE_VERSION
+      node_js: *node
       env: [LOCAL=true, BROWSER=true]
 
 before_install:
@@ -35,3 +35,4 @@ script:
   - npm run build-client
   - if [ LOCAL ]; then npm run test-local; fi
   - if [ BROWSER ]; then npm run test-browser; fi
+  
