@@ -1,7 +1,18 @@
-os: osx
-language: objective-c
-osx_image: xcode8.3
+langauge: generic
 node_js: 5.1.1
+
+matrix:
+  include:
+    - os: osx
+      language: objective-c
+      osx_image: xcode8.3
+      env: [LOCAL=true]
+
+    - os: linux
+      dist: trusty
+      sudo: false
+      language: javascript
+      env: [LOCAL=true, BROWSER=true]
 
 before_install:
   - cd server
@@ -9,8 +20,13 @@ before_install:
 install:
   - npm install
 
+before_script:
+  - [ BROWSER ] && "export DISPLAY=:99.0"
+  - [ BROWSER ] && "sh -e /etc/init.d/xvfb start"
+  - [ BROWSER ] && sleep 3 # give xvfb some time to start
+  
 script:
   - npm run build-server
   - npm run build-client
-  - npm run test-local
-  - npm run test-browser
+  - [ LOCAL ] && npm run test-local
+  - [ BROWSER ] && npm run test-browser
