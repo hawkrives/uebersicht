@@ -1,38 +1,19 @@
-langauge: generic
-NODE_VERSION: &node 5.1.1
-
-matrix:
-  include:
-    - os: osx
-      language: objective-c
-      osx_image: xcode8.3
-      node_js: *node
-      env: [LOCAL=true]
-
-    - os: linux
-      dist: trusty
-      sudo: false
-      language: node_js
-      node_js: *node
-      env: [LOCAL=true, BROWSER=true]
+os: osx
+language: objective-c
+osx_image: xcode8.3
+node_js: *node
 
 before_install:
   - cd server
 
 install:
   - npm install
+  - brew cask install phantomjs
 
-before_script:
-  - |
-    if [ $BROWSER ]; then
-      export DISPLAY=:99.0
-      sh -e /etc/init.d/xvfb start
-      sleep 3 # give xvfb some time to start
-    fi
-  
 script:
   - npm run build-server
   - npm run build-client
-  - if [ $LOCAL ]; then npm run test-local; fi
-  - if [ $BROWSER ]; then npm run test-browser; fi
+
+  - npm run test-local
+  - npm run test-browser-phantom
   
