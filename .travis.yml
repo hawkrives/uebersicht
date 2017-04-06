@@ -11,7 +11,7 @@ matrix:
     - os: linux
       dist: trusty
       sudo: false
-      language: javascript
+      language: node_js
       env: [LOCAL=true, BROWSER=true]
 
 before_install:
