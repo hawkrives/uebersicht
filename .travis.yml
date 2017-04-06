@@ -1,17 +1,19 @@
 langauge: generic
-node_js: 5.1.1
+NODE_VERSION: &node 5.1.1
 
 matrix:
   include:
     - os: osx
       language: objective-c
       osx_image: xcode8.3
+      node_js: *NODE_VERSION
       env: [LOCAL=true]
 
     - os: linux
       dist: trusty
       sudo: false
       language: node_js
+      node_js: *NODE_VERSION
       env: [LOCAL=true, BROWSER=true]
 
 before_install:
