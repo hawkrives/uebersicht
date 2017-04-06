@@ -21,12 +21,15 @@ install:
   - npm install
 
 before_script:
-  - [ BROWSER ] && "export DISPLAY=:99.0"
-  - [ BROWSER ] && "sh -e /etc/init.d/xvfb start"
-  - [ BROWSER ] && sleep 3 # give xvfb some time to start
+  - |
+    if [ BROWSER ]; then
+      export DISPLAY=:99.0
+      sh -e /etc/init.d/xvfb start
+      sleep 3 # give xvfb some time to start
+    fi
   
 script:
   - npm run build-server
   - npm run build-client
-  - [ LOCAL ] && npm run test-local
-  - [ BROWSER ] && npm run test-browser
+  - if [ LOCAL ]; then npm run test-local; fi
+  - if [ BROWSER ]; then npm run test-browser; fi
